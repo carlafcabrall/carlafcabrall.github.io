@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vivo: painel e automação de indicadores | Ana Carla Cabral</title>
+<meta name="description" content="Case de automação no Canal Massivo da Vivo: painel complementar por supervisor em Excel e macro VBA, desenvolvida com IA generativa, que gera as 15 imagens no formato do WhatsApp. Rotina diária de 60 para 30 minutos, medida. Por Ana Carla Cabral.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --tinta:#16181D;--texto:#2A2D34;--suave:#5E636E;--linha:#E3E5EA;
+  --fundo:#FFFFFF;--fundo-2:#F5F6F8;--acento:#0F5C55;--acento-claro:#E3F0EE;
+  --roxo:#5B2A86;--verde:#1E7B46;--verde-claro:#E2F3E8;--vermelho:#B42318;--vermelho-claro:#FDE8E6;--amarelo-claro:#FFF4D6;
+  --medida:66ch;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--fundo);color:var(--texto);font:400 16.5px/1.65 "Inter",system-ui,sans-serif}
+h1,h2{font-family:"Source Serif 4",Georgia,serif;font-weight:700;color:var(--tinta);line-height:1.12;margin:0}
+h2{font-size:clamp(1.6rem,3vw,2.1rem);margin-bottom:.6em}
+h3{font-size:1.06rem;font-weight:700;color:var(--tinta);line-height:1.3;margin:0 0 .4em}
+p{margin:0 0 1em;max-width:var(--medida)}
+ul,ol{max-width:var(--medida)}
+a{color:var(--acento);text-underline-offset:3px;text-decoration-thickness:1.5px}
+a:focus-visible{outline:3px solid var(--acento);outline-offset:3px;border-radius:3px}
+.envoltorio{max-width:1080px;margin:0 auto;padding:0 24px}
+section{padding:72px 0}
+section+section{border-top:1px solid var(--linha)}
+.lead{font-size:1.1rem;max-width:60ch}
+.suave{color:var(--suave)}
+
+.cabecalho{padding:40px 0 64px;background:var(--fundo-2);border-bottom:1px solid var(--linha)}
+.voltar{font-size:.88rem;margin:0 0 40px}
+.rotulo{font-size:.8rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--acento);margin:0 0 12px}
+.cabecalho h1{font-size:clamp(2.1rem,4.6vw,3.2rem);max-width:20ch}
+.cabecalho .tese{font-size:clamp(1.05rem,1.8vw,1.2rem);color:var(--tinta);max-width:60ch;margin:20px 0 32px}
+.kpis{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:none}
+.kpis li{background:#fff;border:1px solid var(--linha);border-radius:12px;padding:16px 18px;font-size:.86rem;color:var(--suave);line-height:1.35}
+.kpis b{display:block;font:700 1.7rem/1.1 "Source Serif 4",Georgia,serif;color:var(--tinta);margin-bottom:4px}
+.kpis .destaque b{color:var(--acento)}
+
+/* Antes e depois */
+.processo{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px;align-items:start}
+.coluna{border-radius:14px;padding:24px}
+.antes{background:var(--fundo-2)}
+.depois{background:var(--acento-claro)}
+.coluna ol{margin:12px 0 0;padding-left:1.3em}
+.coluna li{margin-bottom:.55em;font-size:.95rem}
+.coluna li::marker{font-weight:700;color:var(--acento)}
+.coluna .rodape{font-size:.88rem;color:var(--suave);margin:12px 0 0}
+.tempo{font:700 1.5rem/1 "Source Serif 4",Georgia,serif;color:var(--acento);margin:0 0 6px}
+
+/* Painel fictício */
+.painel-area{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:40px;align-items:start;margin-top:24px}
+.planilha{border:1px solid #C8CCD3;border-radius:6px;background:#fff;font-size:.8rem;line-height:1.3;box-shadow:0 10px 30px rgba(22,24,29,.08);overflow:hidden}
+.planilha .cab{background:var(--roxo);color:#fff;padding:10px 12px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.planilha .cab b{font-size:.95rem}
+.planilha .cab span{font-size:.72rem;opacity:.85}
+.planilha .blocos{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid #E1E3E8}
+.planilha .bloco{padding:8px 10px;border-right:1px solid #E1E3E8}
+.planilha .bloco:last-child{border-right:0}
+.planilha .bloco small{display:block;color:var(--suave);font-size:.68rem}
+.planilha .bloco strong{font-size:1.05rem;color:var(--tinta)}
+.planilha .bloco.ruim strong{color:var(--vermelho)}
+.planilha table{width:100%;border-collapse:collapse}
+.planilha th,.planilha td{padding:5px 10px;border-bottom:1px solid #EEF0F3;text-align:left}
+.planilha th{background:#F3F0F7;color:var(--roxo);font-size:.7rem;font-weight:700}
+.planilha td.num,.planilha th.num{text-align:right}
+.planilha .ok{background:var(--verde-claro);color:var(--verde);font-weight:700}
+.planilha .ruim{background:var(--vermelho-claro);color:var(--vermelho);font-weight:700}
+.planilha .barra-cel{width:38%}
+.barra{height:9px;border-radius:5px;background:#EEF0F3;position:relative}
+.barra i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--roxo)}
+.barra .meta{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--tinta);left:85%}
+.planilha .rodape-p{display:grid;grid-template-columns:1fr 1fr}
+.planilha .rodape-p div{padding:8px 10px}
+.planilha .rodape-p div+div{border-left:1px solid #EEF0F3}
+.planilha .rodape-p h4{margin:0 0 4px;font-size:.7rem;color:var(--roxo)}
+.planilha .rodape-p ul{margin:0;padding-left:1.1em;font-size:.74rem}
+.alerta{background:var(--amarelo-claro);font-size:.74rem;padding:6px 10px;margin:0;max-width:none;border-top:1px solid #F1E2B0}
+.aviso-ficticio{font-size:.8rem;color:var(--suave);margin:10px 0 0}
+.explica h3{margin-top:0}
+.explica ul{padding-left:1.1em;margin:0 0 1.2em}
+.explica li{font-size:.95rem;margin-bottom:.5em}
+
+/* Fluxo */
+.fluxo{list-style:none;counter-reset:passo;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--linha);border:1px solid var(--linha);border-radius:14px;overflow:hidden;max-width:none}
+.fluxo li{counter-increment:passo;background:#fff;padding:20px}
+.fluxo li::before{content:counter(passo);font:700 1.7rem/1 "Source Serif 4",Georgia,serif;color:var(--acento);display:block;margin-bottom:8px}
+.fluxo p{font-size:.9rem;margin:0}
+.fluxo .manual{background:var(--fundo-2)}
+.fluxo .manual::before{color:var(--suave)}
+.tags{font-size:.74rem;font-weight:600;color:var(--suave);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.03em}
+
+/* Construção */
+.ciclo{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:20px 0 32px;max-width:none}
+.ciclo li{background:var(--acento-claro);color:var(--acento);font-weight:600;font-size:.88rem;border-radius:999px;padding:6px 14px}
+.ciclo li+li::before{content:"→ ";color:var(--suave)}
+.falhas{display:grid;grid-template-columns:repeat(2,1fr);gap:20px 32px}
+.falha{border-left:3px solid var(--acento);padding-left:16px}
+.falha p{font-size:.94rem;margin:0 0 .4em}
+.falha .corr{color:var(--suave);font-size:.9rem}
+
+.duas{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.duas ul{padding-left:1.1em;margin:0}
+.duas li{font-size:.95rem;margin-bottom:.55em}
+
+footer{background:var(--tinta);color:#D9DCE2;padding:56px 0}
+footer h2{color:#fff}
+footer p{color:#AEB3BD}
+footer a{color:#fff}
+
+@media (max-width:900px){
+  .painel-area,.processo,.falhas,.duas{grid-template-columns:1fr}
+  .fluxo{grid-template-columns:1fr 1fr}
+  .kpis{grid-template-columns:1fr 1fr}
+}
+@media (max-width:460px){
+  .envoltorio{padding:0 16px}
+  .fluxo{grid-template-columns:1fr}
+  .planilha .blocos{grid-template-columns:1fr 1fr}
+  .planilha .bloco:nth-child(2){border-right:0}
+  .planilha .rodape-p{grid-template-columns:1fr}
+  section{padding:56px 0}
+}
+</style>
+</head>
+<body>
+
+<header class="cabecalho">
+  <div class="envoltorio">
+    <p class="voltar"><a href="../">← Portfólio de Ana Carla Cabral</a></p>
+    <p class="rotulo">Vivo (Telefônica Brasil) · Canal Massivo · set/2025–jun/2026</p>
+    <h1>Painel e automação da entrega diária de indicadores</h1>
+    <p class="tese">Quinze supervisores de campo recebiam todos os dias os indicadores das suas equipes, e repassá-los ao grupo de WhatsApp levava 60 minutos de prints e recortes. Criei um painel complementar por supervisor em Excel e uma macro VBA que gera, com um clique, as 15 imagens já no formato do WhatsApp. A rotina caiu para 30 minutos.</p>
+    <ul class="kpis">
+      <li class="destaque"><b>60 → 30 min</b>rotina diária, redução de 50%</li>
+      <li><b>5 + 5 dias</b>cronometrados antes e depois; números são médias</li>
+      <li><b>15</b>supervisores de campo atendidos todos os dias</li>
+      <li><b>Sem IA na execução</b>automação convencional, desenvolvida com IA generativa</li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+<section id="problema">
+  <div class="envoltorio">
+    <h2>O problema</h2>
+    <p class="lead">Uma macro já existente enviava a cada supervisor, por e-mail, uma imagem extensa com todos os dados da equipe dele. Mas os supervisores consultavam os números no celular, durante a rota, pelo grupo de WhatsApp. Havia dois problemas, um de cada lado.</p>
+    <div class="processo">
+      <div class="coluna antes">
+        <p class="tempo">60 min/dia</p>
+        <h3>Antes: repasse manual ao WhatsApp</h3>
+        <ol>
+          <li>Abrir o e-mail de cada um dos 15 supervisores.</li>
+          <li>Tirar print da imagem; como ela era extensa, muitas vezes dividir em dois prints e centralizar cada parte para o número ficar legível.</li>
+          <li>Mandar os prints para si mesma.</li>
+          <li>Reenviar no grupo de WhatsApp dos supervisores.</li>
+        </ol>
+        <p class="rodape">E, do lado de quem lia: muita informação numa tela pequena. Os supervisores continuavam perguntando pelos mesmos poucos indicadores.</p>
+      </div>
+      <div class="coluna depois">
+        <p class="tempo">30 min/dia</p>
+        <h3>Depois: um clique e uma conferência</h3>
+        <ol>
+          <li>Clicar no botão: a macro gera as 15 imagens do painel e as envia num único e-mail.</li>
+          <li>Abrir o e-mail no celular corporativo e conferir os painéis contra a aba original.</li>
+          <li>Enviar cada imagem no grupo, marcando o supervisor correspondente.</li>
+        </ol>
+        <p class="rodape">O envio no WhatsApp continuou manual porque o ambiente corporativo bloqueava a integração. O detalhamento completo seguiu disponível no e-mail original.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="painel">
+  <div class="envoltorio">
+    <h2>O painel por supervisor</h2>
+    <p class="lead">Mapeei as dúvidas que os supervisores levavam ao grupo e a mim e identifiquei os indicadores que mais orientavam o trabalho em rota. Com eles, criei um painel novo, complementar ao e-mail original, para leitura rápida no celular.</p>
+    <div class="painel-area">
+      <figure style="margin:0">
+        <div class="planilha" role="img" aria-label="Painel recriado com dados fictícios: resumo do Supervisor A, tabela de aderência e gap por vendedor, lojas críticas e alerta de meta">
+          <div class="cab"><b>Supervisor A</b><span>Painel diário · dados fictícios</span></div>
+          <div class="blocos">
+            <div class="bloco"><small>Total de PDVs</small><strong>120</strong></div>
+            <div class="bloco"><small>Meta de aderência</small><strong>85%</strong></div>
+            <div class="bloco ruim"><small>Aderência</small><strong>78%</strong></div>
+            <div class="bloco ruim"><small>Gap</small><strong>26</strong></div>
+          </div>
+          <table>
+            <thead><tr><th>Vendedor</th><th class="num">Aderência</th><th class="num">Gap</th><th class="barra-cel">Aderência × meta</th></tr></thead>
+            <tbody>
+              <tr><td>Vendedor 1</td><td class="num ok">92%</td><td class="num">2</td><td><div class="barra"><i style="width:92%"></i><span class="meta"></span></div></td></tr>
+              <tr><td>Vendedor 2</td><td class="num ruim">83%</td><td class="num">4</td><td><div class="barra"><i style="width:83%"></i><span class="meta"></span></div></td></tr>
+              <tr><td>Vendedor 3</td><td class="num ruim">75%</td><td class="num">6</td><td><div class="barra"><i style="width:75%"></i><span class="meta"></span></div></td></tr>
+              <tr><td>Vendedor 4</td><td class="num ruim">71%</td><td class="num">7</td><td><div class="barra"><i style="width:71%"></i><span class="meta"></span></div></td></tr>
+              <tr><td>Vendedor 5</td><td class="num ruim">71%</td><td class="num">7</td><td><div class="barra"><i style="width:71%"></i><span class="meta"></span></div></td></tr>
+            </tbody>
+          </table>
+          <div class="rodape-p">
+            <div>
+              <h4>Lojas críticas</h4>
+              <ul><li>Loja Exemplo 01 · Bairro A</li><li>Loja Exemplo 02 · Bairro B</li><li>Loja Exemplo 03 · Bairro C</li></ul>
+            </div>
+            <div>
+              <h4>Resumo operacional</h4>
+              <ul><li>4 de 5 vendedores abaixo da meta</li><li>Maior gap: Vendedores 4 e 5</li></ul>
+            </div>
+          </div>
+          <p class="alerta">⚠ Alerta de meta: aderência da equipe 7 p.p. abaixo da meta.</p>
+        </div>
+        <figcaption class="aviso-ficticio">Painel recriado para este portfólio. Nomes, lojas e números são fictícios; a estrutura reproduz a do painel real.</figcaption>
+      </figure>
+      <div class="explica">
+        <h3>O que entrou e por quê</h3>
+        <ul>
+          <li><strong>Resumo no topo:</strong> total de PDVs, meta, aderência e gap, para leitura de relance.</li>
+          <li><strong>Aderência e gap por vendedor,</strong> com destaque de cor para quem está abaixo da meta.</li>
+          <li><strong>Lojas críticas</strong> e um <strong>alerta de meta</strong>, as perguntas mais frequentes no grupo.</li>
+          <li><strong>Um gráfico por vendedor,</strong> para comparar a equipe sem ler número por número.</li>
+        </ul>
+        <h3>Como o painel funciona</h3>
+        <p>Uma aba nova com uma célula para o nome do supervisor. As fórmulas buscam na aba original só os dados dele. Trocar o nome troca o painel inteiro, e é isso que permite automatizar a geração das 15 imagens.</p>
+        <p class="suave" style="font-size:.9rem">Os cálculos dos indicadores já vinham prontos da aba original. Minha parte foi escolher o que mostrar e como mostrar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="automacao">
+  <div class="envoltorio">
+    <h2>A automação</h2>
+    <p>A macro original já enviava e-mails. A diferença da minha é gerar, com um clique, as 15 imagens prontas para o WhatsApp, o que acabou com os prints e recortes manuais.</p>
+    <ol class="fluxo">
+      <li><span class="tags">Excel</span><p>A aba original é atualizada pela rotina já existente.</p></li>
+      <li><span class="tags">VBA</span><p>O botão percorre a lista dos 15 supervisores e escreve cada nome na célula do painel.</p></li>
+      <li><span class="tags">VBA</span><p>Para cada um: recalcula, espera a tela atualizar e captura o painel como imagem PNG, com o nome dele no arquivo.</p></li>
+      <li><span class="tags">VBA + Outlook</span><p>Reúne as 15 imagens num único e-mail e devolve o painel ao estado anterior.</p></li>
+      <li class="manual"><span class="tags">Manual</span><p>Conferência dos painéis e envio no grupo de WhatsApp, bloqueado para integração.</p></li>
+    </ol>
+    <div class="duas" style="margin-top:36px">
+      <div>
+        <h3>Proteções</h3>
+        <ul>
+          <li>Até três tentativas de captura, se a imagem falhar.</li>
+          <li>A imagem nova é gravada num arquivo temporário e só substitui a antiga se deu certo.</li>
+          <li>Caracteres proibidos são retirados do nome do arquivo.</li>
+          <li>Em caso de erro, a planilha volta ao estado anterior, com uma mensagem clara.</li>
+          <li>Uma segunda macro gera e envia só o painel do supervisor selecionado.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Limites conhecidos</h3>
+        <ul>
+          <li>Recalcula a pasta inteira a cada supervisor, o que fica lento em planilhas grandes.</li>
+          <li>Usa esperas fixas de 1 segundo para a tela atualizar.</li>
+          <li>A pasta de destino está fixa no código.</li>
+        </ul>
+        <p class="suave" style="font-size:.9rem;margin-top:12px">Para 15 supervisores por dia, funcionava. Numa escala maior, estes seriam os primeiros pontos a revisar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="como-construi">
+  <div class="envoltorio">
+    <h2>Como construí com IA generativa</h2>
+    <p>Não escrevo VBA. Conduzi o desenvolvimento com o ChatGPT: eu especificava o comportamento esperado, ele gerava o código, eu testava na planilha e voltava com as falhas. O ciclo se repetiu até a versão final:</p>
+    <ul class="ciclo">
+      <li>Descrever o comportamento</li><li>Gerar o código</li><li>Executar</li><li>Comparar com o esperado</li><li>Descrever a falha</li>
+    </ul>
+    <div class="falhas">
+      <div class="falha">
+        <h3>Imagens em branco no lote</h3>
+        <p>A geração individual funcionava; em sequência, os arquivos saíam vazios, sem mensagem de erro. Só percebi porque abri as imagens.</p>
+        <p class="corr">Correção: recalcular antes de cada captura, esperar a tela atualizar e repetir a captura até três vezes.</p>
+      </div>
+      <div class="falha">
+        <h3>Captura antes da atualização</h3>
+        <p>Se a captura acontecesse antes de o Excel terminar, a imagem mostraria os dados do supervisor anterior.</p>
+        <p class="corr">Correção: sequência fixa de trocar o nome, recalcular, esperar e só então capturar.</p>
+      </div>
+      <div class="falha">
+        <h3>Arquivos sobrescritos</h3>
+        <p>Todas as imagens eram salvas com o mesmo nome, uma apagando a outra.</p>
+        <p class="corr">Correção: o nome do arquivo passou a vir do supervisor exibido no painel.</p>
+      </div>
+      <div class="falha">
+        <h3>Painel cortado</h3>
+        <p>Comparando a imagem com a planilha, vi partes faltando embaixo e na lateral.</p>
+        <p class="corr">Correção: o recorte capturado foi ampliado até cobrir o painel inteiro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resultado">
+  <div class="envoltorio">
+    <h2>Resultado e aprendizados</h2>
+    <div class="duas">
+      <div>
+        <h3>Resultado</h3>
+        <ul>
+          <li>Rotina diária de <strong>60 para 30 minutos (−50%)</strong>. Cronometrei a rotina completa por 5 dias antes e 5 dias depois e usei a média.</li>
+          <li><strong>15 supervisores</strong> recebendo o painel todos os dias.</li>
+          <li>O formato passou a ser usado também por outras pessoas da equipe que faziam o envio.</li>
+          <li>Os supervisores relataram que ficou mais fácil ler os números em campo.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Aprendizados</h3>
+        <ul>
+          <li>Um arquivo gerado sem erro não garante que o conteúdo esteja certo: a saída precisa ser conferida.</li>
+          <li>O que funciona uma vez pode falhar em sequência.</li>
+          <li>Automatizar até a fronteira do ambiente e deixar explícito o que ficou manual, e por quê.</li>
+          <li>Hoje eu testaria um ajuste por vez, para isolar a causa de falhas como a das imagens em branco.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="envoltorio">
+    <h2>Contato</h2>
+    <p>Ana Carla Cabral, Engenharia de Produção (CESUPA), Belém (PA).</p>
+    <p><a href="mailto:carlafcabrall.1@gmail.com">carlafcabrall.1@gmail.com</a> · <a href="https://www.linkedin.com/in/ana-carla-cabral-725482304">LinkedIn</a> · <a href="../">Portfólio completo</a> · <a href="../belem-auto-repasse/">Case Belém Auto Repasse</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ana Carla Cabral | Automação de processos, dados e IA aplicada a operações</title>
+<meta name="description" content="Portfólio de Ana Carla Cabral, Engenharia de Produção (CESUPA). Cases: Belém Auto Repasse, app com IA em uso real que centraliza consulta de veículos e anúncio; e automação de indicadores na Vivo, que reduziu uma rotina diária de 60 para 30 minutos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --tinta:#16181D;
+  --texto:#2A2D34;
+  --suave:#5E636E;
+  --linha:#E3E5EA;
+  --fundo:#FFFFFF;
+  --fundo-2:#F5F6F8;
+  --acento:#0F5C55;
+  --acento-claro:#E3F0EE;
+  --ouro:#D4AF37;
+  --preto:#0D0D0D;
+  --medida:64ch;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--fundo);color:var(--texto);font:400 16.5px/1.65 "Inter",system-ui,sans-serif}
+h1,h2{font-family:"Source Serif 4",Georgia,serif;font-weight:700;color:var(--tinta);line-height:1.12;margin:0}
+h2{font-size:clamp(1.6rem,3vw,2.1rem);margin-bottom:.6em}
+h3{font-size:1.06rem;font-weight:700;color:var(--tinta);line-height:1.3;margin:0 0 .4em}
+p{margin:0 0 1em;max-width:var(--medida)}
+a{color:var(--acento);text-underline-offset:3px;text-decoration-thickness:1.5px}
+a:focus-visible{outline:3px solid var(--acento);outline-offset:3px;border-radius:3px}
+.envoltorio{max-width:1080px;margin:0 auto;padding:0 24px}
+section{padding:72px 0}
+section+section{border-top:1px solid var(--linha)}
+
+/* Cabeçalho */
+.cabecalho{padding:88px 0 72px;background:var(--fundo-2);border-bottom:1px solid var(--linha)}
+.cabecalho h1{font-size:clamp(2.4rem,5.4vw,3.6rem)}
+.titulo-prof{font-size:clamp(1.02rem,1.8vw,1.18rem);font-weight:600;color:var(--acento);margin:14px 0 6px}
+.dados{font-size:.93rem;color:var(--suave);margin:0 0 28px}
+.tese{font-size:clamp(1.08rem,1.9vw,1.24rem);color:var(--tinta);max-width:58ch;margin-bottom:30px}
+.links{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:0;padding:0}
+.links a{display:inline-block;padding:9px 16px;border:1px solid var(--linha);border-radius:8px;background:#fff;text-decoration:none;font-weight:600;font-size:.92rem;color:var(--tinta)}
+.links a:hover{border-color:var(--acento);color:var(--acento)}
+.links a.principal{background:var(--acento);border-color:var(--acento);color:#fff}
+
+/* Cases */
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:8px}
+.case{border:1px solid var(--linha);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;background:#fff;transition:border-color .15s,box-shadow .15s}
+.case:hover{border-color:#C9CDD5;box-shadow:0 8px 24px rgba(22,24,29,.06)}
+.faixa{padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:96px}
+.faixa.belem{background:var(--preto);color:#F5E6C8;border-bottom:3px solid var(--ouro)}
+.faixa.belem img{height:52px;width:auto;display:block}
+.faixa.vivo{background:var(--acento-claro);color:var(--acento)}
+.faixa .tipo{font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.faixa.vivo strong{font-family:"Source Serif 4",Georgia,serif;font-size:1.5rem;color:var(--tinta)}
+.corpo{padding:24px;display:flex;flex-direction:column;flex:1}
+.corpo h3{font-size:1.25rem}
+.corpo .sub{font-size:.88rem;color:var(--suave);margin:0 0 14px}
+.corpo p{font-size:.96rem}
+.numeros{list-style:none;margin:6px 0 22px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 18px}
+.numeros li{font-size:.84rem;color:var(--suave);line-height:1.35}
+.numeros b{display:block;font:700 1.45rem/1.1 "Source Serif 4",Georgia,serif;color:var(--tinta)}
+.numeros .destaque b{color:var(--acento)}
+.ver{margin-top:auto;font-weight:600;text-decoration:none}
+.ver::after{content:" →"}
+.ressalva{font-size:.8rem;color:var(--suave);margin:-8px 0 18px}
+
+/* Como trabalho */
+.atributos{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:8px}
+.atributo{border-top:3px solid var(--acento);padding-top:16px}
+.atributo p{font-size:.95rem;margin:0}
+
+/* Ferramentas */
+.ferramentas{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.ferramentas ul{list-style:none;margin:0;padding:0}
+.ferramentas li{font-size:.94rem;padding:7px 0;border-bottom:1px solid var(--linha)}
+.ferramentas li span{display:block;font-size:.8rem;color:var(--suave)}
+
+footer{background:var(--tinta);color:#D9DCE2;padding:56px 0}
+footer h2{color:#fff}
+footer p{color:#AEB3BD}
+footer a{color:#fff}
+
+@media (max-width:820px){
+  .cases,.atributos,.ferramentas{grid-template-columns:1fr}
+  .cabecalho{padding:60px 0 52px}
+  section{padding:56px 0}
+}
+@media (max-width:420px){
+  .envoltorio{padding:0 16px}
+  .numeros{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="cabecalho">
+  <div class="envoltorio">
+    <h1>Ana Carla Cabral</h1>
+    <p class="titulo-prof">Engenharia de Produção | Automação de processos, dados e IA aplicada a operações</p>
+    <p class="dados">CESUPA, conclusão prevista em dez/2028 · Belém (PA), disponível para remoto</p>
+    <p class="tese">Identifico processos manuais e repetitivos que tiram tempo de quem deveria decidir e negociar, e os transformo em soluções. Uso IA onde ela é necessária, regras fixas onde a regra resolve, travas contra suposição e alucinação, e meço o resultado.</p>
+    <ul class="links">
+      <li><a class="principal" href="belem-auto-repasse/">Ver o case principal</a></li>
+      <li><a href="https://www.linkedin.com/in/ana-carla-cabral-725482304">LinkedIn</a></li>
+      <li><a href="mailto:carlafcabrall.1@gmail.com">carlafcabrall.1@gmail.com</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+<section id="projetos">
+  <div class="envoltorio">
+    <h2>Projetos</h2>
+    <div class="cases">
+
+      <article class="case">
+        <div class="faixa belem">
+          <img src="belem-auto-repasse/imagens/logo-belem-auto-repasse.png" alt="Logo Belém Auto Repasse" width="115" height="52">
+          <span class="tipo">Produto com IA · em uso real</span>
+        </div>
+        <div class="corpo">
+          <h3>Belém Auto Repasse</h3>
+          <p class="sub">App web para um negócio de repasse de veículos · out–nov/2026</p>
+          <p>App que reúne num só lugar a consulta do veículo (placa, dados e FIPE) e a criação do anúncio, antes feitas em ferramentas separadas, carro a carro, num negócio com mais de 20 carros por semana. Da placa e de um áudio narrado saem a ficha conferida, o anúncio do WhatsApp, as artes com fotos e o histórico FIPE. Conduzi o projeto como dona do produto, com o Claude Code programando.</p>
+          <ul class="numeros">
+            <li><b>13 etapas</b>entregues em 9 dias</li>
+            <li><b>137</b>decisões documentadas</li>
+            <li><b>198</b>testes automatizados</li>
+            <li class="destaque"><b>0 erros</b>dos 2 LLMs avaliados num gabarito de 11 casos</li>
+            <li><b>18× menor</b>custo do modelo adotado, com a mesma precisão</li>
+            <li><b>≈ R$ 26</b>de operação prevista por mês</li>
+          </ul>
+          <a class="ver" href="belem-auto-repasse/">Ver o case completo</a>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="faixa vivo">
+          <strong>Vivo</strong>
+          <span class="tipo">Automação de rotina operacional</span>
+        </div>
+        <div class="corpo">
+          <h3>Painel e automação de indicadores</h3>
+          <p class="sub">Estágio na Vivo (Telefônica Brasil) · set/2025–jun/2026</p>
+          <p>Criei um painel complementar por supervisor em Excel, centrado nos indicadores que mais orientavam o trabalho em rota, e uma macro VBA que, com um clique, gera as 15 imagens já no formato do WhatsApp e as reúne num único e-mail, eliminando os prints e recortes manuais. Conduzi o desenvolvimento do código com IA generativa (ChatGPT); a automação roda sem IA.</p>
+          <ul class="numeros">
+            <li class="destaque"><b>60 → 30 min</b>rotina diária (−50%)</li>
+            <li><b>5 + 5 dias</b>cronometrados antes e depois</li>
+            <li><b>15</b>supervisores de campo</li>
+            <li><b>Diário</b>envio dos painéis</li>
+          </ul>
+          <p class="ressalva">O case mostra um painel recriado com dados fictícios.</p>
+          <a class="ver" href="vivo/">Ver o case completo</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="como-trabalho">
+  <div class="envoltorio">
+    <h2>Como eu trabalho</h2>
+    <div class="atributos">
+      <div class="atributo">
+        <h3>Construo e aprendo fazendo</h3>
+        <p>Entreguei o Belém em 13 etapas, uma por vez, nenhuma avançando sem testes e sem a minha validação. Na Vivo, sem saber VBA, especifiquei o comportamento, testei cada versão e pedi correções até a solução entrar no uso diário.</p>
+      </div>
+      <div class="atributo">
+        <h3>AI-First, com critério</h3>
+        <p>No Belém, a IA lê a fala; o anúncio e a arte saem de regras fixas, mais seguras e de custo zero. Na Vivo, a IA entrou no desenvolvimento e ficou fora da execução.</p>
+      </div>
+      <div class="atributo">
+        <h3>Impacto real, medido</h3>
+        <p>Cronometrei a rotina da Vivo antes e depois. No Belém, avaliei dois modelos contra um gabarito e adotei o que entregou a mesma precisão com custo 18 vezes menor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ferramentas">
+  <div class="envoltorio">
+    <h2>Ferramentas que usei em projetos reais</h2>
+    <div class="ferramentas">
+      <ul>
+        <li>Claude Code<span>agente de programação no Belém</span></li>
+        <li>API da OpenAI<span>transcrição de voz e extração de dados com saída estruturada</span></li>
+        <li>ChatGPT<span>desenvolvimento do código VBA na Vivo</span></li>
+      </ul>
+      <ul>
+        <li>Excel e VBA<span>painéis, fórmulas e automação na Vivo</span></li>
+        <li>Power BI<span>análise de indicadores em painéis existentes, na Vivo</span></li>
+        <li>Avaliação de modelos<span>gabarito de 11 casos no Belém</span></li>
+      </ul>
+      <ul>
+        <li>Supabase e Netlify<span>banco, login e hospedagem do Belém</span></li>
+        <li>Next.js e TypeScript<span>stack do Belém, código escrito pelo Claude Code</span></li>
+        <li>Vitest<span>198 testes automatizados do Belém</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="envoltorio">
+    <h2>Contato</h2>
+    <p>Ana Carla Cabral, Engenharia de Produção (CESUPA), Belém (PA).</p>
+    <p><a href="mailto:carlafcabrall.1@gmail.com">carlafcabrall.1@gmail.com</a> · <a href="https://www.linkedin.com/in/ana-carla-cabral-725482304">LinkedIn</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
