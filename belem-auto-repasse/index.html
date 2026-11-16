@@ -184,12 +184,16 @@ mark.ativo{background:rgba(212,175,55,.35)}
 .atributos{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
 .atributos p{font-size:.95rem}
 
-.video{aspect-ratio:16/9;max-width:880px;border-radius:14px;overflow:hidden;background:var(--papel)}
+/* ---------- Vídeo (vertical, 9:16) ---------- */
+.video-area{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,360px);gap:48px;align-items:center}
+.video{aspect-ratio:9/16;width:100%;max-width:360px;margin:0 auto;border-radius:14px;overflow:hidden;background:var(--preto)}
 .video iframe{width:100%;height:100%;border:0;display:block}
+.reserva{font-size:.9rem;margin-top:16px}
 
-/* ---------- A preencher (remover antes de publicar) ---------- */
-.pendente{border:2px dashed var(--alerta);background:#FFF7E6;color:var(--alerta);border-radius:10px;padding:14px 16px;font-size:.92rem;font-weight:500}
-.video.pendente,figure.pendente{display:flex;align-items:center;justify-content:center;text-align:center}
+/* ---------- Tempo por anúncio ---------- */
+.tempo{font:italic 700 1.5rem/1.1 "Bodoni Moda",Georgia,serif;color:var(--ouro-texto);margin:0 0 8px}
+.depois .tempo{color:var(--ouro)}
+.medicao{font-size:.9rem;color:var(--texto-suave);margin:18px 0 0;max-width:none}
 
 footer{background:var(--preto);color:var(--bege);padding:56px 0}
 footer h2{color:var(--ouro)}
@@ -202,7 +206,8 @@ footer a{color:var(--bege)}
   .fluxo{grid-template-columns:1fr 1fr}
 }
 @media (max-width:760px){
-  .trilha,.processo,.grupos,.recursos,.decisoes,.custos,.duas,.atributos{grid-template-columns:1fr}
+  .trilha,.processo,.grupos,.recursos,.decisoes,.custos,.duas,.atributos,.video-area{grid-template-columns:1fr}
+  .video-area{gap:24px}
   .numeros{grid-template-columns:1fr 1fr}
   section{padding:60px 0}
   .topo{flex-direction:column;align-items:flex-start}
@@ -303,17 +308,17 @@ FIPE (nov/2026): R$ 61.240
 
     <div class="processo">
       <div class="coluna antes">
-        <h3>Antes: para cada carro, em ferramentas separadas</h3>
+        <p class="tempo">8 a 10 min por anúncio</p>
+        <h3>Antes: consulta num app, anúncio à mão</h3>
         <ol>
-          <li>Consultar a placa num app e encontrar a versão certa na Tabela FIPE.</li>
-          <li>Ver como o preço do modelo vinha variando, no app de consulta ou em outro serviço.</li>
-          <li>Anotar ou lembrar quilometragem, itens de confiança e reparos pendentes.</li>
-          <li>Digitar o anúncio do WhatsApp item por item, com risco de errar preço e quilometragem.</li>
-          <li>Calcular quanto o preço estava abaixo da FIPE, o principal argumento para o lojista.</li>
+          <li>Consultar a placa e o preço FIPE juntos, num app da Tabela FIPE.</li>
+          <li>Digitar o anúncio do WhatsApp à mão, item por item: não havia ferramenta para isso.</li>
+          <li>Fazer à parte a conta da diferença para a FIPE, o principal argumento para o lojista.</li>
           <li>Mandar as fotos soltas no grupo, sem arte.</li>
         </ol>
       </div>
       <div class="coluna depois">
+        <p class="tempo">4 a 5 min por anúncio</p>
         <h3>Depois: num só app, duas ações e uma conferência</h3>
         <ol>
           <li>Digitar a placa.</li>
@@ -323,6 +328,7 @@ FIPE (nov/2026): R$ 61.240
         <p class="rodape">A ficha, o anúncio com a diferença para a FIPE já calculada e o histórico de preço ficam no mesmo lugar, a partir dos dados que ele conferiu. A arte com as fotos é uma novidade: antes ela não existia.</p>
       </div>
     </div>
+    <p class="medicao">Tempo por anúncio: de 8 a 10 para 4 a 5 minutos (6 anúncios cronometrados em cada método, nov/2026).</p>
   </div>
 </section>
 
@@ -427,7 +433,18 @@ FIPE (nov/2026): R$ 61.240
   </div>
 </section>
 
-<!-- Seção do vídeo retirada até o vídeo ficar pronto -->
+<section id="video">
+  <div class="envoltorio video-area">
+    <div>
+      <h2>O app funcionando</h2>
+      <p>Demonstração gravada no iPhone, do jeito que o usuário usa: da placa ao anúncio, à arte e ao histórico FIPE.</p>
+      <p class="reserva"><a href="https://youtube.com/shorts/XlIm7J5bU4o" target="_blank" rel="noopener">Assistir no YouTube</a></p>
+    </div>
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/XlIm7J5bU4o" title="Belém Auto Repasse: demonstração do app no iPhone" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
 
 <section id="decisoes">
   <div class="envoltorio">
@@ -515,7 +532,8 @@ FIPE (nov/2026): R$ 61.240
 <section id="resultados">
   <div class="envoltorio">
     <h2>Resultados</h2>
-    <p>O app já faz parte do dia a dia do negócio. Desde a entrega, <strong>o próprio usuário já criou 15 fichas com placas reais</strong>. Cada conta vê só as próprias fichas.</p>
+    <p><strong>Tempo por anúncio: de 8 a 10 para 4 a 5 minutos</strong> (6 anúncios cronometrados em cada método, nov/2026).</p>
+    <p>O app já faz parte do dia a dia do negócio. Desde a entrega, <strong>o próprio usuário já criou mais de 15 fichas com placas reais</strong>. Cada conta vê só as próprias fichas.</p>
     <p>Ele testou cada função e aprovou, e os ajustes que pediu, como o rótulo “PREÇO NO REPASSE” no anúncio, entraram no app.</p>
   </div>
 </section>
